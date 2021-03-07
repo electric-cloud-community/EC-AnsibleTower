@@ -1,0 +1,8 @@
+# PDK
+.gradle/
+.idea/
+.assets/
+build/
+specs/logs
+specs/spec-report
+*.bak

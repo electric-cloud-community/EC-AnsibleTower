@@ -1,0 +1,132 @@
+pluginInfo:
+  # This is default sample specification
+  # Feel free to change it
+  # Call pdk showdoc pluginspec to see the list of available fields and their description
+  pluginName: 'EC-AnsibleTower'
+  version: '1.0.0'
+  description: 'Integrates with Ansible Tower'
+  author: 'Phil Cherry'
+  supportUrl: 'none'
+  category: 'Resource Management'
+  shell: 'ec-groovy'
+
+# REST-backed plugin configuration
+configuration:
+  checkConnection: true
+  restConfigInfo:
+    endpointLabel: 'Ansible Tower Server'
+    checkConnectionUri: '/api/v2/me/'
+    headers:
+      Accept: 'application/json'
+    authSchemes:
+      bearer:
+        passwordLabel: 'Bearer token'
+        description: 'Token to connect to...'
+#      oauth1:
+#        tokenLabel: 'OAuth1 Token'
+#        signatureMethod: 'RSA-SHA1'
+      basic:
+        userNameLabel: 'Username'
+        passwordLabel: 'Password'
+        description: 'Username and password to connect to ...'
+  hasProxySupport: true
+  hasDebugLevel: true
+
+procedures:
+# Job Template
+-
+  name: 'List Job Templates'
+  description: 'This procedure lists all Job Templates'
+  hasConfig: true
+  shell: 'ec-groovy'
+  outputParameters:
+  -
+    name: result
+    description: Rest API result
+  restProcedureInfo:
+    url: '/api/v2/job_templates/'
+    methodName: 'listJobTemplates'
+    httpMethod: 'GET'
+-
+  name: 'Retrieve a Job Template'
+  description: 'This procedure retrieves a Job Template'
+  hasConfig: true
+  shell: 'ec-groovy'
+  parameters:
+  -
+    name: id
+    documentation: id of the Job Template to retrieve
+    required: true
+    type: entry
+    label: Job Template id
+    restParamInfo:
+      in: path
+  outputParameters:
+  -
+    name: result
+    description: Rest API result
+  restProcedureInfo:
+    url: '/api/v2/job_templates/{{id}}/'
+    methodName: 'getJobTemplate'
+    httpMethod: 'GET'
+-
+  name: 'Launch a Job Template'
+  description: 'This procedure launches a Job Template'
+  hasConfig: true
+  shell: 'ec-groovy'
+  parameters:
+  -
+    name: id
+    documentation: id of the Job Template to launch
+    required: true
+    type: entry
+    label: Job Template id
+    restParamInfo:
+      in: path
+  outputParameters:
+  -
+    name: result
+    description: Rest API result
+  -
+    name: id
+    description: id of the launched job
+  restProcedureInfo:
+    url: '/api/v2/job_templates/{{id}}/launch/'
+    methodName: 'launchJobTemplate'
+    httpMethod: 'POST'
+# Inventories
+-
+  name: 'List Inventories'
+  description: 'This procedure lists all the Inventories'
+  hasConfig: true
+  shell: 'ec-groovy'
+  outputParameters:
+  -
+    name: result
+    description: Rest API result
+  restProcedureInfo:
+    url: '/api/v2/inventories/'
+    methodName: 'listInventories'
+    httpMethod: 'GET'
+-
+  name: 'Retrieve an Inventory'
+  description: 'This procedure retrieves an Inventory'
+  hasConfig: true
+  shell: 'ec-groovy'
+  parameters:
+  -
+    name: id
+    documentation: id of the Inventory to retrieve
+    required: true
+    type: entry
+    label: Inventory id
+    restParamInfo:
+      in: path
+  outputParameters:
+  -
+    name: result
+    description: Rest API result
+  restProcedureInfo:
+    url: '/api/v2/inventories/{{id}}/'
+    methodName: 'getInventory'
+    httpMethod: 'GET'
