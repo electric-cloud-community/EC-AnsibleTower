@@ -6,3 +6,6 @@ build/
 specs/logs
 specs/spec-report
 *.bak
+
+# Mac
+.DS_Store
