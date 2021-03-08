@@ -126,6 +126,56 @@ class AnsibleTower extends FlowPlugin {
         sr.setOutputParameter('id', response.id.toString())
         sr.apply()
     }
+/**
+     * Auto-generated method for the procedure Create an Inventory/Create an Inventory
+     * Add your code into this method and it will be called when step runs* Parameter: config* Parameter: data
+     */
+    def createAnInventory(StepParameters p, StepResult sr) {
+        CreateAnInventoryParameters sp = CreateAnInventoryParameters.initParameters(p)
+        ECAnsibleTowerRESTClient rest = genECAnsibleTowerRESTClient()
+        Map restParams = [:]
+        Map requestParams = p.asMap
+        restParams.put('data', requestParams.get('data'))
+
+        Object response = rest.createInventory(restParams)
+        log.info "Got response from server: $response"
+        //TODO step result output parameters
+        sr.setOutputParameter('result', response.toString())
+        sr.setOutputParameter('id', response.id.toString())
+        sr.apply()
+    }
+/**
+     * Auto-generated method for the procedure List Projects/List Projects
+     * Add your code into this method and it will be called when step runs* Parameter: config
+     */
+    def listProjects(StepParameters p, StepResult sr) {
+        ListProjectsParameters sp = ListProjectsParameters.initParameters(p)
+        ECAnsibleTowerRESTClient rest = genECAnsibleTowerRESTClient()
+        Map restParams = [:]
+        Map requestParams = p.asMap
+
+        Object response = rest.listProjects(restParams)
+        log.info "Got response from server: $response"
+        //TODO step result output parameters
+        sr.setOutputParameter('result', response.toString())
+        sr.apply()
+    }
+/**
+     * Auto-generated method for the procedure List Organizations/List Organizations
+     * Add your code into this method and it will be called when step runs* Parameter: config
+     */
+    def listOrganizations(StepParameters p, StepResult sr) {
+        ListOrganizationsParameters sp = ListOrganizationsParameters.initParameters(p)
+        ECAnsibleTowerRESTClient rest = genECAnsibleTowerRESTClient()
+        Map restParams = [:]
+        Map requestParams = p.asMap
+
+        Object response = rest.listOrganizations(restParams)
+        log.info "Got response from server: $response"
+        //TODO step result output parameters
+        sr.setOutputParameter('result', response.toString())
+        sr.apply()
+    }
 // === step ends ===
 
 }

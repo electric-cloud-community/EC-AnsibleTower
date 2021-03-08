@@ -3,7 +3,7 @@ pluginInfo:
   # Feel free to change it
   # Call pdk showdoc pluginspec to see the list of available fields and their description
   pluginName: 'EC-AnsibleTower'
-  version: '1.0.1'
+  version: '1.0.2'
   description: 'Integrates with Ansible Tower'
   author: 'Phil Cherry'
   supportUrl: 'none'
@@ -154,4 +154,57 @@ procedures:
   restProcedureInfo:
     url: '/api/v2/inventories/{{id}}/'
     methodName: 'getInventory'
+    httpMethod: 'GET'
+-
+  name: 'Create an Inventory'
+  description: 'This procedure creates an Inventory'
+  hasConfig: true
+  shell: 'ec-groovy'
+  parameters:
+  -
+    name: data
+    documentation: JSON body to send
+    required: true
+    type: textarea
+    label: JSON body
+    restParamInfo:
+      in: raw body
+  outputParameters:
+  -
+    name: result
+    description: Rest API result
+  -
+    name: id
+    description: id of the created inventory
+  restProcedureInfo:
+    url: '/api/v2/inventories/'
+    methodName: 'createInventory'
+    httpMethod: 'POST'
+# Organizations
+-
+  name: 'List Organizations'
+  description: 'This procedure lists all the Organizations'
+  hasConfig: true
+  shell: 'ec-groovy'
+  outputParameters:
+  -
+    name: result
+    description: Rest API result
+  restProcedureInfo:
+    url: '/api/v2/organizations/'
+    methodName: 'listOrganizations'
+    httpMethod: 'GET'
+# Projects
+-
+  name: 'List Projects'
+  description: 'This procedure lists all the Projects'
+  hasConfig: true
+  shell: 'ec-groovy'
+  outputParameters:
+  -
+    name: result
+    description: Rest API result
+  restProcedureInfo:
+    url: '/api/v2/projects/'
+    methodName: 'listProjects'
     httpMethod: 'GET'

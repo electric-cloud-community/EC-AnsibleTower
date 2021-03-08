@@ -400,7 +400,92 @@ class ECAnsibleTowerRESTClient {
         Map headers = [:]
         return makeRequest('GET', uri, query, payload, headers)
     }
-// DO NOT EDIT THIS BLOCK ABOVE ^^^=== rest client ends, checksum: d685477f2b7d5d7ba7d3f657945771c2 ===
+
+    /** Generated code for the endpoint /api/v2/inventories/
+    * Do not change this code
+    * data: in raw body
+    */
+    def createInventory(Map<String, Object> params) {
+        this.method = 'createInventory'
+        this.methodParameters = params
+
+        String uri = '/api/v2/inventories/'
+        log.debug("URI template $uri")
+        uri = renderOneLineTemplate(uri, params)
+
+        Map query = [:]
+
+        log.debug "Query: ${query}"
+
+        Object payload
+
+        payload = new JsonSlurper().parseText(params.get('data'))
+        log.debug "Raw body payload: $payload"
+
+        String jsonTemplate = ''''''
+        if (jsonTemplate) {
+            payload = payloadFromTemplate(jsonTemplate, params)
+            log.debug("Payload from template: $payload")
+        }
+        //TODO clean empty fields
+        Map headers = [:]
+        return makeRequest('POST', uri, query, payload, headers)
+    }
+
+    /** Generated code for the endpoint /api/v2/organizations/
+    * Do not change this code
+    */
+    def listOrganizations(Map<String, Object> params) {
+        this.method = 'listOrganizations'
+        this.methodParameters = params
+
+        String uri = '/api/v2/organizations/'
+        log.debug("URI template $uri")
+        uri = renderOneLineTemplate(uri, params)
+
+        Map query = [:]
+
+        log.debug "Query: ${query}"
+
+        Object payload
+
+        String jsonTemplate = ''''''
+        if (jsonTemplate) {
+            payload = payloadFromTemplate(jsonTemplate, params)
+            log.debug("Payload from template: $payload")
+        }
+        //TODO clean empty fields
+        Map headers = [:]
+        return makeRequest('GET', uri, query, payload, headers)
+    }
+
+    /** Generated code for the endpoint /api/v2/projects/
+    * Do not change this code
+    */
+    def listProjects(Map<String, Object> params) {
+        this.method = 'listProjects'
+        this.methodParameters = params
+
+        String uri = '/api/v2/projects/'
+        log.debug("URI template $uri")
+        uri = renderOneLineTemplate(uri, params)
+
+        Map query = [:]
+
+        log.debug "Query: ${query}"
+
+        Object payload
+
+        String jsonTemplate = ''''''
+        if (jsonTemplate) {
+            payload = payloadFromTemplate(jsonTemplate, params)
+            log.debug("Payload from template: $payload")
+        }
+        //TODO clean empty fields
+        Map headers = [:]
+        return makeRequest('GET', uri, query, payload, headers)
+    }
+// DO NOT EDIT THIS BLOCK ABOVE ^^^=== rest client ends, checksum: c6f3b2dcd2e56da898946f059a5503b0 ===
     /**
      * Use this method for any request pre-processing: adding custom headers, binary files, etc.
      */

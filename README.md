@@ -12,6 +12,7 @@ Inventories
 
 - List Inventories
 - Get Inventory
+- Create Inventory
 
 Job Templates
 
@@ -19,3 +20,11 @@ Job Templates
 - Get Job Template
 - Launch Job Template
 - Create a Job Template
+
+Projects
+
+- List Projects
+
+Organizations
+
+- List Organizations
