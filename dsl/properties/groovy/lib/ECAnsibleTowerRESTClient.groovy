@@ -315,6 +315,37 @@ class ECAnsibleTowerRESTClient {
         return makeRequest('POST', uri, query, payload, headers)
     }
 
+    /** Generated code for the endpoint /api/v2/job_templates/
+    * Do not change this code
+    * data: in raw body
+    */
+    def createJobTemplate(Map<String, Object> params) {
+        this.method = 'createJobTemplate'
+        this.methodParameters = params
+
+        String uri = '/api/v2/job_templates/'
+        log.debug("URI template $uri")
+        uri = renderOneLineTemplate(uri, params)
+
+        Map query = [:]
+
+        log.debug "Query: ${query}"
+
+        Object payload
+
+        payload = new JsonSlurper().parseText(params.get('data'))
+        log.debug "Raw body payload: $payload"
+
+        String jsonTemplate = ''''''
+        if (jsonTemplate) {
+            payload = payloadFromTemplate(jsonTemplate, params)
+            log.debug("Payload from template: $payload")
+        }
+        //TODO clean empty fields
+        Map headers = [:]
+        return makeRequest('POST', uri, query, payload, headers)
+    }
+
     /** Generated code for the endpoint /api/v2/inventories/
     * Do not change this code
     */
@@ -369,7 +400,7 @@ class ECAnsibleTowerRESTClient {
         Map headers = [:]
         return makeRequest('GET', uri, query, payload, headers)
     }
-// DO NOT EDIT THIS BLOCK ABOVE ^^^=== rest client ends, checksum: 06ef0681e2b2584346f9288b704ea4cd ===
+// DO NOT EDIT THIS BLOCK ABOVE ^^^=== rest client ends, checksum: d685477f2b7d5d7ba7d3f657945771c2 ===
     /**
      * Use this method for any request pre-processing: adding custom headers, binary files, etc.
      */

@@ -108,6 +108,24 @@ class AnsibleTower extends FlowPlugin {
         sr.setOutputParameter('result', response.toString())
         sr.apply()
     }
+/**
+     * Auto-generated method for the procedure Create a Job Template/Create a Job Template
+     * Add your code into this method and it will be called when step runs* Parameter: config* Parameter: data
+     */
+    def createAJobTemplate(StepParameters p, StepResult sr) {
+        CreateAJobTemplateParameters sp = CreateAJobTemplateParameters.initParameters(p)
+        ECAnsibleTowerRESTClient rest = genECAnsibleTowerRESTClient()
+        Map restParams = [:]
+        Map requestParams = p.asMap
+        restParams.put('data', requestParams.get('data'))
+
+        Object response = rest.createJobTemplate(restParams)
+        log.info "Got response from server: $response"
+        //TODO step result output parameters
+        sr.setOutputParameter('result', response.toString())
+        sr.setOutputParameter('id', response.id.toString())
+        sr.apply()
+    }
 // === step ends ===
 
 }
