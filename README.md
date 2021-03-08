@@ -18,3 +18,4 @@ Job Templates
 - List Job Templates
 - Get Job Template
 - Launch Job Template
+- Create a Job Template
