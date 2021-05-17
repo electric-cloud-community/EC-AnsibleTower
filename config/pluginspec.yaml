@@ -3,8 +3,8 @@ pluginInfo:
   # Feel free to change it
   # Call pdk showdoc pluginspec to see the list of available fields and their description
   pluginName: 'EC-AnsibleTower'
-  version: '1.0.2'
-  description: 'Integrates with Ansible Tower'
+  version: '1.0.3'
+  description: 'Integrates with Ansible Tower and AWX'
   author: 'Phil Cherry'
   supportUrl: 'none'
   category: 'Resource Management'
@@ -65,6 +65,9 @@ procedures:
   -
     name: result
     description: Rest API result
+  -
+    name: link
+    description: link to the Job Template
   restProcedureInfo:
     url: '/api/v2/job_templates/{{id}}/'
     methodName: 'getJobTemplate'
@@ -90,6 +93,9 @@ procedures:
   -
     name: id
     description: id of the launched job
+  -
+    name: link
+    description: link to the launched job
   restProcedureInfo:
     url: '/api/v2/job_templates/{{id}}/launch/'
     methodName: 'launchJobTemplate'
@@ -114,7 +120,10 @@ procedures:
     description: Rest API result
   -
     name: id
-    description: id of the launched job
+    description: id of the created Job Template
+  -
+    name: link
+    description: link to the created Job Template
   restProcedureInfo:
     url: '/api/v2/job_templates/'
     methodName: 'createJobTemplate'
@@ -151,6 +160,9 @@ procedures:
   -
     name: result
     description: Rest API result
+  -
+    name: link
+    description: link to the inventory
   restProcedureInfo:
     url: '/api/v2/inventories/{{id}}/'
     methodName: 'getInventory'
@@ -176,6 +188,9 @@ procedures:
   -
     name: id
     description: id of the created inventory
+  -
+    name: link
+    description: link to the inventory
   restProcedureInfo:
     url: '/api/v2/inventories/'
     methodName: 'createInventory'

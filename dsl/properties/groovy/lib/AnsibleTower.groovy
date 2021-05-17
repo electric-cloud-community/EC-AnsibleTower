@@ -30,8 +30,14 @@ class AnsibleTower extends FlowPlugin {
         Object response = rest.launchJobTemplate(restParams)
         log.info "Got response from server: $response"
         //TODO step result output parameters
+        // Get endpoint from config, and make sure it ends with '/'
+        def ep = p.getParameter('endpoint').value
+        if (!ep.endsWith('/')) { ep = ep + "/" }
+        log.info "Something extra in the log"
+        // set OutputParameters
         sr.setOutputParameter('result', response.toString())
         sr.setOutputParameter('id', response.id.toString())
+        sr.setOutputParameter('link', '<html><a href="' + ep + '#/jobs/playbook/' + response.id.toString() + '" target="_blank">Ansible Launched Job ' + response.id.toString() +'</a></html>')
         sr.apply()
     }
 /**
@@ -72,7 +78,12 @@ class AnsibleTower extends FlowPlugin {
         Object response = rest.getJobTemplate(restParams)
         log.info "Got response from server: $response"
         //TODO step result output parameters
+        // Get endpoint from config, and make sure it ends with '/'
+        def ep = p.getParameter('endpoint').value
+        if (!ep.endsWith('/')) { ep = ep + "/" }
+
         sr.setOutputParameter('result', response.toString())
+        sr.setOutputParameter('link', '<html><a href="' + ep + '#/templates/job_template/' + response.id.toString() + '/details" target="_blank">Ansible Retrieved Job Template ' + response.id.toString() +'</a></html>')
         sr.apply()
     }
 /**
@@ -105,7 +116,12 @@ class AnsibleTower extends FlowPlugin {
         Object response = rest.getInventory(restParams)
         log.info "Got response from server: $response"
         //TODO step result output parameters
+        // Get endpoint from config, and make sure it ends with '/'
+        def ep = p.getParameter('endpoint').value
+        if (!ep.endsWith('/')) { ep = ep + "/" }
+
         sr.setOutputParameter('result', response.toString())
+        sr.setOutputParameter('link', '<html><a href="' + ep + '#/inventories/inventory/' + response.id.toString() + '/details" target="_blank">Ansible Retrieved Inventory ' + response.id.toString() +'</a></html>')
         sr.apply()
     }
 /**
@@ -122,8 +138,13 @@ class AnsibleTower extends FlowPlugin {
         Object response = rest.createJobTemplate(restParams)
         log.info "Got response from server: $response"
         //TODO step result output parameters
+        // Get endpoint from config, and make sure it ends with '/'
+        def ep = p.getParameter('endpoint').value
+        if (!ep.endsWith('/')) { ep = ep + "/" }
+
         sr.setOutputParameter('result', response.toString())
         sr.setOutputParameter('id', response.id.toString())
+        sr.setOutputParameter('link', '<html><a href="' + ep + '#/templates/job_template/' + response.id.toString() + '/details" target="_blank">Ansible Created Job Template ' + response.id.toString() +'</a></html>')
         sr.apply()
     }
 /**
@@ -140,8 +161,13 @@ class AnsibleTower extends FlowPlugin {
         Object response = rest.createInventory(restParams)
         log.info "Got response from server: $response"
         //TODO step result output parameters
+        // Get endpoint from config, and make sure it ends with '/'
+        def ep = p.getParameter('endpoint').value
+        if (!ep.endsWith('/')) { ep = ep + "/" }
+
         sr.setOutputParameter('result', response.toString())
         sr.setOutputParameter('id', response.id.toString())
+        sr.setOutputParameter('link', '<html><a href="' + ep + '#/inventories/inventory/' + response.id.toString() + '/details" target="_blank">Ansible Created Inventory ' + response.id.toString() +'</a></html>')
         sr.apply()
     }
 /**
