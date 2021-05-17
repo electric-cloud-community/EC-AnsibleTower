@@ -1,8 +1,8 @@
 # EC-AnsibleTower
 
-This plugin uses the Ansible Tower REST API.
+This plugin uses the Ansible Tower/AWX REST API.
 
-It has been tested with Ansible Tower v3.8.1.
+It has been tested with Ansible Tower v3.8.1 and AWX 19.1.0
 
 ## Contents ##
 
