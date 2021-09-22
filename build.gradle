@@ -11,7 +11,7 @@ dependencies {
     implementation 'org.codehaus.groovy:groovy-all:2.4.13'
 
     // Change the version if you have upgraded the groovy library
-    implementation 'com.electriccloud.plugins:flowpdf-groovy-lib:1.1.2.0'
+    implementation 'com.electriccloud.plugins:flowpdf-groovy-lib:1.2.0.0'
 }
 
 
