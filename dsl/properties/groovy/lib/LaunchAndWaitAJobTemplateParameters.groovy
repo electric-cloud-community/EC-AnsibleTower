@@ -13,6 +13,10 @@ class LaunchAndWaitAJobTemplateParameters {
     * Label: Job Template Parameters, type: textarea
     */
     String body
+    /**
+    * Label: Job Status polling interval, type: entry
+    */
+    String checkInterval
 
     static LaunchAndWaitAJobTemplateParameters initParameters(StepParameters sp) {
         LaunchAndWaitAJobTemplateParameters parameters = new LaunchAndWaitAJobTemplateParameters()
@@ -21,8 +25,10 @@ class LaunchAndWaitAJobTemplateParameters {
         parameters.id = id
         def body = sp.getParameter('body').value
         parameters.body = body
+        def checkInterval = sp.getParameter('checkInterval').value
+        parameters.checkInterval = checkInterval
 
         return parameters
     }
 }
-// DO NOT EDIT THIS BLOCK ABOVE ^^^=== Parameters ends, checksum: 36fcbfefeea57c778a9eae4783d0bdd2 ===
+// DO NOT EDIT THIS BLOCK ABOVE ^^^=== Parameters ends, checksum: ae329da1e53b6ea1f9cac13a3584746d ===

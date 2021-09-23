@@ -352,24 +352,6 @@ class ECAnsibleTowerRESTClient {
         return makeRequest('POST', uri, query, payload, headers)
     }
 
-    /** Manual code
-     * id: in path
-     * body: in raw body
-     */
-    def getJobStatus(Map<String, String> params) {
-        this.method = 'getJobStatus'
-        this.methodParameters = params
-
-        String uri = '/api/v2/jobs/{{id}}/'
-        uri = renderOneLineTemplate(uri, params)
-
-        String payload = ''
-
-        Map query = [:]
-        Map headers = [:]
-        return makeRequest('GET', uri, query, payload, headers)
-    }
-
     /** Generated code for the endpoint /api/v2/job_templates/
     * Do not change this code
     * data: in raw body

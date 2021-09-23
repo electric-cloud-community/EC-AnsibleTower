@@ -238,12 +238,12 @@ class AnsibleTower extends FlowPlugin {
         String jobResult = 'pending'
         while (!isJobFinished) {
             // wait for 10s until next Ansible query
-            sleep (10 * 1000)
+            sleep (Integer.valueOf(sp.checkInterval) * 1000)
 
             // Query Ansible API to get ANsible Job's status (use the Ansible Job id, not the Template id)
             Map<String, String> getParams = [:];
             getParams.put('id', response.id.toString())
-            Object getJobResponse = rest.getJobStatus(getParams)
+            Object getJobResponse = this.getJobStatus(getParams)
             log.info "GET Job's status: ${getJobResponse.status}"
 
             // If Ansible job is finished, exit the loop
@@ -269,6 +269,26 @@ class AnsibleTower extends FlowPlugin {
         sr.setOutputParameter('link', '<html><a href="' + ep + '#/jobs/playbook/' + response.id.toString() + '" target="_blank">Ansible Launched Job ' + response.id.toString() +'</a></html>')
         sr.apply()
     }
+
+    /** Manual code
+     * id: in path
+     * body: in raw body
+     */
+    def getJobStatus(Map<String, String> params) {
+        ECAnsibleTowerRESTClient rest = genECAnsibleTowerRESTClient()
+        rest.method = 'getJobStatus'
+        rest.methodParameters = params
+
+        String uri = "/api/v2/jobs/${params.get('id')}"
+
+        String payload = ''
+        Map query = [:]
+        Map headers = [:]
+
+
+        return rest.makeRequest('GET', uri, query, payload, headers)
+    }
+
 // === step ends ===
 
 }

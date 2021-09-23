@@ -129,6 +129,12 @@ procedures:
       label: Job Template Parameters
       restParamInfo:
         in: raw body
+    - name: checkInterval
+      documentation: 'Number of seconds between each polling to get the Job status'
+      required: false
+      type: entry
+      label: Job Status polling interval
+      defaultValue: 10
   outputParameters:
     - name: result
       description: Rest API result
