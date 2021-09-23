@@ -17,6 +17,10 @@ class LaunchAndWaitAJobTemplateParameters {
     * Label: Job Status polling interval, type: entry
     */
     String checkInterval
+    /**
+    * Label: Depend On Jenkins Build Result?, type: checkbox
+    */
+    boolean dependOnResult
 
     static LaunchAndWaitAJobTemplateParameters initParameters(StepParameters sp) {
         LaunchAndWaitAJobTemplateParameters parameters = new LaunchAndWaitAJobTemplateParameters()
@@ -27,8 +31,10 @@ class LaunchAndWaitAJobTemplateParameters {
         parameters.body = body
         def checkInterval = sp.getParameter('checkInterval').value
         parameters.checkInterval = checkInterval
+        def dependOnResult = sp.getParameter('dependOnResult').value == "true"
+        parameters.dependOnResult = dependOnResult
 
         return parameters
     }
 }
-// DO NOT EDIT THIS BLOCK ABOVE ^^^=== Parameters ends, checksum: ae329da1e53b6ea1f9cac13a3584746d ===
+// DO NOT EDIT THIS BLOCK ABOVE ^^^=== Parameters ends, checksum: 6cb1684cf4ecae5cea17f43c47a7f728 ===

@@ -254,13 +254,15 @@ class AnsibleTower extends FlowPlugin {
             }
         }
 
-        // Update the CD job status with the Ansible job status
-        Map<String, String> mappingAnsibleCD = [:]
-        mappingAnsibleCD.put('successful', 'success')
-        mappingAnsibleCD.put('failed', 'error')
-        mappingAnsibleCD.put('error', 'error')
+        if (sp.dependOnResult) {
+            // Update the CD job status with the Ansible job status
+            Map<String, String> mappingAnsibleCD = [:]
+            mappingAnsibleCD.put('successful', 'success')
+            mappingAnsibleCD.put('failed', 'error')
+            mappingAnsibleCD.put('error', 'error')
 
-        sr.setJobStepOutcome(mappingAnsibleCD[jobResult])
+            sr.setJobStepOutcome(mappingAnsibleCD[jobResult])
+        }
 
         // set OutputParameters
         sr.setOutputParameter('job_status', jobResult)

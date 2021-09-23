@@ -135,6 +135,12 @@ procedures:
       type: entry
       label: Job Status polling interval
       defaultValue: 10
+    - name: dependOnResult
+      documentation: Check to enable depend on job status mechanics. In that case, the job result will be synchronized with the Ansible Tower job result.
+      label: Depend On Jenkins Build Result?
+      required: false
+      type: checkbox
+      defaultValue: 'true'
   outputParameters:
     - name: result
       description: Rest API result
@@ -142,6 +148,8 @@ procedures:
       description: id of the launched job
     - name: link
       description: link to the launched job
+    - name: job_status
+      description: Status of the launched Job
   restProcedureInfo:
     url: '/api/v2/job_templates/{{id}}/launch/'
     methodName: 'launchAndWaitJobTemplate'
