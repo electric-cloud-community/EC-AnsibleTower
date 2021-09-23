@@ -18,7 +18,7 @@ class LaunchAndWaitAJobTemplateParameters {
     */
     String checkInterval
     /**
-    * Label: Depend On Jenkins Build Result?, type: checkbox
+    * Label: Depend On Ansible Tower Job Result?, type: checkbox
     */
     boolean dependOnResult
 
@@ -37,4 +37,4 @@ class LaunchAndWaitAJobTemplateParameters {
         return parameters
     }
 }
-// DO NOT EDIT THIS BLOCK ABOVE ^^^=== Parameters ends, checksum: 6cb1684cf4ecae5cea17f43c47a7f728 ===
+// DO NOT EDIT THIS BLOCK ABOVE ^^^=== Parameters ends, checksum: 9ebd9d7b1ef70a077bc76547e1b24491 ===

@@ -137,7 +137,7 @@ procedures:
       defaultValue: 10
     - name: dependOnResult
       documentation: Check to enable depend on job status mechanics. In that case, the job result will be synchronized with the Ansible Tower job result.
-      label: Depend On Job Result?
+      label: Depend On Ansible Tower Job Result?
       required: false
       type: checkbox
       defaultValue: 'true'
