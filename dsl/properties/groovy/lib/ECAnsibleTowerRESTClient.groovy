@@ -89,13 +89,14 @@ class ECAnsibleTowerRESTClient {
 
     // Handles templates like , taking values from the params
     private static String renderOneLineTemplate(String uri, Map params) {
-        for(String key in params.keySet()) {
+        for (String key in params.keySet()) {
             Object value = params.get(key)
-            if (value) {
-                uri = uri.replaceAll(/\{\{$key\}\}/, value as String)
-            }
-            else {
-                throw new InvalidRestClientException("A field $key is empty in params but required in the template")
+            if (uri =~ /\{\{$key\}\}/) {
+                if (value) {
+                    uri = uri.replaceAll(/\{\{$key\}\}/, value as String)
+                } else {
+                    throw new InvalidRestClientException("A field $key is empty in params but required in the template")
+                }
             }
         }
         return uri
@@ -319,6 +320,56 @@ class ECAnsibleTowerRESTClient {
         return makeRequest('POST', uri, query, payload, headers)
     }
 
+    /** Generated code for the endpoint /api/v2/job_templates/{{id}}/launch/
+    * Do not change this code
+    * id: in path
+    * body: in raw body
+    */
+    def launchAndWaitJobTemplate(Map<String, Object> params) {
+        this.method = 'launchAndWaitJobTemplate'
+        this.methodParameters = params
+
+        String uri = '/api/v2/job_templates/{{id}}/launch/'
+        log.debug("URI template $uri")
+        uri = renderOneLineTemplate(uri, params)
+
+        Map query = [:]
+
+        log.debug "Query: ${query}"
+
+        Object payload
+
+        payload = new JsonSlurper().parseText(params.get('body'))
+        log.debug "Raw body payload: $payload"
+
+        String jsonTemplate = ''''''
+        if (jsonTemplate) {
+            payload = payloadFromTemplate(jsonTemplate, params)
+            log.debug("Payload from template: $payload")
+        }
+        //TODO clean empty fields
+        Map headers = [:]
+        return makeRequest('POST', uri, query, payload, headers)
+    }
+
+    /** Manual code
+     * id: in path
+     * body: in raw body
+     */
+    def getJobStatus(Map<String, String> params) {
+        this.method = 'getJobStatus'
+        this.methodParameters = params
+
+        String uri = '/api/v2/jobs/{{id}}/'
+        uri = renderOneLineTemplate(uri, params)
+
+        String payload = ''
+
+        Map query = [:]
+        Map headers = [:]
+        return makeRequest('GET', uri, query, payload, headers)
+    }
+
     /** Generated code for the endpoint /api/v2/job_templates/
     * Do not change this code
     * data: in raw body
@@ -489,7 +540,7 @@ class ECAnsibleTowerRESTClient {
         Map headers = [:]
         return makeRequest('GET', uri, query, payload, headers)
     }
-// DO NOT EDIT THIS BLOCK ABOVE ^^^=== rest client ends, checksum: 7458efcefda42ac148b8066bc480e77e ===
+// DO NOT EDIT THIS BLOCK ABOVE ^^^=== rest client ends, checksum: c3ff21f818320ce274c45ea4dbbe8163 ===
     /**
 
      * Use this method for any request pre-processing: adding custom headers, binary files, etc.

@@ -208,6 +208,67 @@ class AnsibleTower extends FlowPlugin {
         sr.setOutputParameter('result', response.toString())
         sr.apply()
     }
+/**
+     * Auto-generated method for the procedure Launch and Wait a Job Template/Launch and Wait a Job Template
+     * Add your code into this method and it will be called when step runs* Parameter: config* Parameter: id* Parameter: body
+     */
+    def launchAndWaitAJobTemplate(StepParameters p, StepResult sr) {
+        LaunchAndWaitAJobTemplateParameters sp = LaunchAndWaitAJobTemplateParameters.initParameters(p)
+        ECAnsibleTowerRESTClient rest = genECAnsibleTowerRESTClient()
+        Map<String, Object> restParams = [:]
+        Map<String, Object> requestParams = p.asMap
+        restParams.put('id', requestParams.get('id'))
+
+        if (requestParams.get('body') == '') {
+            restParams.put('body', '{"extra_vars": "{}"}')
+        } else {
+            restParams.put('body', requestParams.get('body'))
+        }
+
+        Object response = rest.launchAndWaitJobTemplate(restParams)
+        log.info "Got response from server: $response"
+                // Get endpoint from config, and make sure it ends with '/'
+        String ep = p.getParameter('endpoint').value
+        if (!ep.endsWith('/')) {
+            ep = ep + "/"
+        }
+
+        // Loop until Job execution is over
+        boolean isJobFinished = false
+        String jobResult = 'pending'
+        while (!isJobFinished) {
+            // wait for 10s until next Ansible query
+            sleep (10 * 1000)
+
+            // Query Ansible API to get ANsible Job's status (use the Ansible Job id, not the Template id)
+            Map<String, String> getParams = [:];
+            getParams.put('id', response.id.toString())
+            Object getJobResponse = rest.getJobStatus(getParams)
+            log.info "GET Job's status: ${getJobResponse.status}"
+
+            // If Ansible job is finished, exit the loop
+            if (getJobResponse.status.toLowerCase() != 'pending' && getJobResponse.status.toLowerCase() != 'running') {
+                log.info("Job ${requestParams.get('id')} is finished with status ${getJobResponse.status}")
+                jobResult = getJobResponse.status
+                isJobFinished = true
+            }
+        }
+
+        // Update the CD job status with the Ansible job status
+        Map<String, String> mappingAnsibleCD = [:]
+        mappingAnsibleCD.put('successful', 'success')
+        mappingAnsibleCD.put('failed', 'error')
+        mappingAnsibleCD.put('error', 'error')
+
+        sr.setJobStepOutcome(mappingAnsibleCD[jobResult])
+
+        // set OutputParameters
+        sr.setOutputParameter('job_status', jobResult)
+        sr.setOutputParameter('result', response.toString())
+        sr.setOutputParameter('id', response.id.toString())
+        sr.setOutputParameter('link', '<html><a href="' + ep + '#/jobs/playbook/' + response.id.toString() + '" target="_blank">Ansible Launched Job ' + response.id.toString() +'</a></html>')
+        sr.apply()
+    }
 // === step ends ===
 
 }
