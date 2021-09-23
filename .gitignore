@@ -9,3 +9,10 @@ specs/spec-report
 
 # Mac
 .DS_Store
+
+# Eclipse
+.settings/
+.classpath
+gradlew
+gradlew.bat
+gradle/
