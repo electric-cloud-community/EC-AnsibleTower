@@ -3,7 +3,7 @@ pluginInfo:
   # Feel free to change it
   # Call pdk showdoc pluginspec to see the list of available fields and their description
   pluginName: 'EC-AnsibleTower'
-  version: '1.0.4'
+  version: '1.0.5'
   description: 'Integrates with Ansible Tower and AWX'
   author: 'Phil Cherry'
   supportUrl: 'none'
@@ -107,6 +107,52 @@ procedures:
   restProcedureInfo:
     url: '/api/v2/job_templates/{{id}}/launch/'
     methodName: 'launchJobTemplate'
+    httpMethod: 'POST'
+
+-
+  name: 'Launch and Wait a Job Template'
+  description: 'This procedure launches a Job Template and waits for its execution'
+  hasConfig: true
+  shell: 'ec-groovy'
+  parameters:
+    - name: id
+      documentation: id of the Job Template to launch
+      required: true
+      type: entry
+      label: Job Template id
+      restParamInfo:
+        in: path
+    - name: body
+      documentation: 'Parameters of the Job Template to launch (example: { "extra_vars": {"foo": "bar"} })'
+      required: false
+      type: textarea
+      label: Job Template Parameters
+      restParamInfo:
+        in: raw body
+    - name: checkInterval
+      documentation: 'Number of seconds between each polling to get the Job status'
+      required: false
+      type: entry
+      label: Job Status polling interval
+      defaultValue: 10
+    - name: dependOnResult
+      documentation: Check to enable depend on job status mechanics. In that case, the job result will be synchronized with the Ansible Tower job result.
+      label: Depend On Jenkins Build Result?
+      required: false
+      type: checkbox
+      defaultValue: 'true'
+  outputParameters:
+    - name: result
+      description: Rest API result
+    - name: id
+      description: id of the launched job
+    - name: link
+      description: link to the launched job
+    - name: job_status
+      description: Status of the launched Job
+  restProcedureInfo:
+    url: '/api/v2/job_templates/{{id}}/launch/'
+    methodName: 'launchAndWaitJobTemplate'
     httpMethod: 'POST'
 -
   name: 'Create a Job Template'
