@@ -19,6 +19,7 @@ Job Templates
 - List Job Templates
 - Get Job Template
 - Launch Job Template
+- Launch and Wait Job Template
 - Create a Job Template
 
 Projects
